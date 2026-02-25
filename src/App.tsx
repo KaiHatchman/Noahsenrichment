@@ -22,8 +22,7 @@ function Stat({ label, value, color = 'text-white' }: { label: string; value: nu
 }
 
 export default function App() {
-  const [apiKey, setApiKey] = useState(import.meta.env.VITE_BLITZ_API_KEY || 'blitz_Mq39abbWuCEHgo3rrGyjtsh9')
-  const [showKey, setShowKey] = useState(false)
+  const apiKey = import.meta.env.VITE_BLITZ_API_KEY || 'blitz_Mq39abbWuCEHgo3rrGyjtsh9'
   const [skipPhone, setSkipPhone] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [dragging, setDragging] = useState(false)
@@ -53,8 +52,8 @@ export default function App() {
   }
 
   const handleSubmit = async () => {
-    if (!file || !apiKey.trim()) {
-      setError('Please provide both a CSV file and an API key')
+    if (!file) {
+      setError('Please select a CSV file')
       return
     }
 
@@ -126,29 +125,6 @@ export default function App() {
         {!jobId ? (
           <div className="bg-gray-900 rounded-2xl p-6 space-y-5 border border-gray-800">
 
-            {/* API Key */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                Blitz API Key
-              </label>
-              <div className="relative">
-                <input
-                  type={showKey ? 'text' : 'password'}
-                  value={apiKey}
-                  onChange={e => setApiKey(e.target.value)}
-                  placeholder="blitz_..."
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-16 font-mono text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowKey(!showKey)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-200"
-                >
-                  {showKey ? 'Hide' : 'Show'}
-                </button>
-              </div>
-            </div>
-
             {/* File Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1.5">
@@ -215,7 +191,7 @@ export default function App() {
 
             <button
               onClick={handleSubmit}
-              disabled={!file || !apiKey.trim() || loading}
+              disabled={!file || loading}
               className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold rounded-xl py-3 transition-colors"
             >
               {loading ? 'Starting...' : 'Start Enrichment'}
@@ -307,13 +283,9 @@ export default function App() {
 
         {/* CSV format hint */}
         {!jobId && (
-          <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-xs text-gray-500 space-y-1.5">
-            <div className="text-gray-400 font-medium mb-2">Expected CSV columns</div>
-            <div><span className="text-gray-300 font-mono">LinkedIn URL</span> - company LinkedIn URL (required)</div>
-            <div><span className="text-gray-300 font-mono">Name</span> - company name (optional)</div>
-            <div><span className="text-gray-300 font-mono">Domain</span> - company domain (optional)</div>
-            <div><span className="text-gray-300 font-mono">Location</span> - company location (optional)</div>
-            <div><span className="text-gray-300 font-mono">Size</span> - company size (optional)</div>
+          <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-4 text-xs text-gray-500">
+            <div className="text-gray-400 font-medium mb-1.5">Required CSV column</div>
+            <div><span className="text-gray-300 font-mono">Company LinkedIn URL</span> - one company per row</div>
           </div>
         )}
 
