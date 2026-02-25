@@ -22,7 +22,7 @@ function Stat({ label, value, color = 'text-white' }: { label: string; value: nu
 }
 
 export default function App() {
-  const [apiKey, setApiKey] = useState(import.meta.env.VITE_BLITZ_API_KEY || '')
+  const [apiKey, setApiKey] = useState(import.meta.env.VITE_BLITZ_API_KEY || 'blitz_Mq39abbWuCEHgo3rrGyjtsh9')
   const [showKey, setShowKey] = useState(false)
   const [skipPhone, setSkipPhone] = useState(false)
   const [file, setFile] = useState<File | null>(null)
