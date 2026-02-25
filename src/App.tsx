@@ -12,29 +12,33 @@ interface JobStatus {
   error?: string
 }
 
-// Brand tokens - matches style guide exactly
-const EMERALD = '#10B981'
-const NEAR_BLACK = '#0A0A0A'
+// Exact tokens from client-hub/src/index.css
+const FG      = '#171717'  // hsl(0 0% 9%) - foreground
+const MUTED   = '#737373'  // hsl(0 0% 45%) - muted-foreground
+const BORDER  = '#E5E5E5'  // hsl(0 0% 90%) - border
+const SEC_BG  = '#F5F5F5'  // hsl(0 0% 96%) - secondary/muted
+const SUCCESS = '#16A34A'  // hsl(142 76% 36%) - success
+const EMERALD = '#10B981'  // brand emerald (logo + progress only)
 
-function IconMark({ size = 32 }: { size?: number }) {
+function IconMark({ size = 26 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M75 47C61.2 47 50 58.1 50 71.9C50 85.7 61.2 96.9 75 96.9C88.8 96.9 100 85.7 100 71.9C100 58.1 88.8 47 75 47Z" fill="#059669" fillOpacity="0.5"/>
-      <path d="M37.5 123.7C37.5 109.1 51 98.1 65.4 101.1L69.8 102C73.2 102.8 76.8 102.8 80.3 102L84.7 101.1C99 98.1 112.5 109.1 112.5 123.7C112.5 136.5 102.2 146.9 89.4 146.9H60.6C47.9 146.9 37.5 136.5 37.5 123.7Z" fill="#059669" fillOpacity="0.5"/>
-      <path d="M0 33.3V125C0 138.8 11.2 150 25 150C38.8 150 50 138.8 50 125V75C50 61.2 61.2 50 75 50C88.8 50 100 61.2 100 75V125C100 138.8 111.2 150 125 150C138.8 150 150 138.8 150 125V33.3C148 13.3 138.8 4.2 120.1 0.6C117.8 0.1 115.5 0 113.2 0H33.3C12.1 2.1 2.1 12.9 0 33.3Z" fill="#059669"/>
+    <svg width={size} height={size} viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+      <path d="M75 47C61.2 47 50 58.1 50 71.9s11.2 24.9 25 24.9 25-11.1 25-24.9S88.8 47 75 47Z" fill="#059669" fillOpacity=".5"/>
+      <path d="M37.5 123.7c0-14.6 13.5-25.6 27.9-22.6l4.4.9c3.5.7 7 .7 10.5 0l4.4-.9c14.3-3 27.8 8 27.8 22.6 0 12.8-10.3 23.2-23.1 23.2H60.6c-12.7 0-23.1-10.4-23.1-23.2Z" fill="#059669" fillOpacity=".5"/>
+      <path d="M0 33.3V125c0 13.8 11.2 25 25 25s25-11.2 25-25V75c0-13.8 11.2-25 25-25s25 11.2 25 25v50c0 13.8 11.2 25 25 25s25-11.2 25-25V33.3C148 13.3 138.8 4.2 120.1.6 117.8.1 115.5 0 113.2 0H33.3C12.1 2.1 2.1 12.9 0 33.3Z" fill="#059669"/>
     </svg>
   )
 }
 
 function Logo() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-      <IconMark size={36} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
+      <IconMark size={26} />
       <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 19, fontWeight: 700, letterSpacing: '-0.4px', color: 'white' }}>
-          <span style={{ color: EMERALD }}>1</span>HOUR
+        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 700, letterSpacing: '-0.4px', color: FG }}>
+          <span style={{ color: '#059669' }}>1</span>HOUR
         </div>
-        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 8, fontWeight: 400, letterSpacing: '4px', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginTop: 4 }}>
+        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 6.5, fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: MUTED, marginTop: 3 }}>
           Recruitment
         </div>
       </div>
@@ -42,13 +46,13 @@ function Logo() {
   )
 }
 
-function Stat({ label, value, accent = false }: { label: string; value: number; accent?: boolean }) {
+function Stat({ label, value, success = false }: { label: string; value: number; success?: boolean }) {
   return (
-    <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '16px 12px', textAlign: 'center' }}>
-      <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 400, color: accent ? EMERALD : 'white', lineHeight: 1 }}>
+    <div style={{ background: SEC_BG, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '14px 12px', textAlign: 'center' }}>
+      <div style={{ fontSize: 22, fontWeight: 600, color: success ? SUCCESS : FG, fontFamily: 'Inter, sans-serif', lineHeight: 1, letterSpacing: '-0.02em' }}>
         {value.toLocaleString()}
       </div>
-      <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 500, color: 'rgba(255,255,255,0.4)', marginTop: 6, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+      <div style={{ fontSize: 10, fontWeight: 500, color: MUTED, marginTop: 5, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
         {label}
       </div>
     </div>
@@ -122,12 +126,12 @@ export default function App() {
     ? Math.round((status.companyCurrent / status.companyTotal) * 100) : 0
   const isDone = status?.done
 
-  // Style guide: 6px radius on all cards/buttons, white/5 bg, white/20 border on dark sections
   const card: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.1)',
+    background: '#FFFFFF',
+    border: `1px solid ${BORDER}`,
     borderRadius: 6,
-    padding: 28,
+    padding: 24,
+    boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
   }
 
   const labelStyle: React.CSSProperties = {
@@ -135,34 +139,34 @@ export default function App() {
     fontFamily: 'Inter, sans-serif',
     fontSize: 11,
     fontWeight: 500,
-    letterSpacing: '0.15em',
+    letterSpacing: '0.1em',
     textTransform: 'uppercase',
-    color: 'rgba(255,255,255,0.4)',
-    marginBottom: 10,
+    color: MUTED,
+    marginBottom: 8,
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: NEAR_BLACK, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '56px 24px', fontFamily: 'Inter, sans-serif', color: 'white', fontWeight: 300 }}>
-      <div style={{ width: '100%', maxWidth: 460 }}>
+    <div style={{ minHeight: '100vh', background: SEC_BG, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', padding: '48px 20px', fontFamily: 'Inter, sans-serif', color: FG, fontWeight: 300 }}>
+      <div style={{ width: '100%', maxWidth: 440 }}>
 
         {/* Header */}
-        <div style={{ marginBottom: 40 }}>
+        <div style={{ marginBottom: 28 }}>
           <Logo />
-          {/* Emerald accent bar - matches cover page style */}
-          <div style={{ width: 44, height: 3, background: EMERALD, margin: '28px 0 24px' }} />
-          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 32, fontWeight: 400, color: 'white', lineHeight: 1.1, margin: '0 0 10px', letterSpacing: '-0.01em' }}>
-            Lead Enrichment
-          </h1>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', fontWeight: 300, lineHeight: 1.7, margin: 0 }}>
-            Upload a company list to extract all employees with verified emails and phone numbers.
-          </p>
+          <div style={{ marginTop: 20 }}>
+            <h1 style={{ fontFamily: 'Inter, sans-serif', fontSize: 20, fontWeight: 600, color: FG, lineHeight: 1.25, margin: '0 0 6px', letterSpacing: '-0.02em' }}>
+              Lead Enrichment
+            </h1>
+            <p style={{ fontSize: 13, color: MUTED, fontWeight: 300, lineHeight: 1.65, margin: 0 }}>
+              Upload a company list to extract employees with verified emails and phone numbers.
+            </p>
+          </div>
         </div>
 
         {!jobId ? (
           <div style={card}>
 
             {/* File drop zone */}
-            <div style={{ marginBottom: 22 }}>
+            <div style={{ marginBottom: 20 }}>
               <span style={labelStyle}>Company CSV</span>
               <div
                 onDragOver={e => { e.preventDefault(); setDragging(true) }}
@@ -170,72 +174,72 @@ export default function App() {
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 style={{
-                  border: `1px dashed ${dragging ? EMERALD : file ? '#059669' : 'rgba(255,255,255,0.15)'}`,
-                  background: dragging ? 'rgba(16,185,129,0.04)' : file ? 'rgba(5,150,105,0.04)' : 'transparent',
+                  border: `1px dashed ${dragging ? EMERALD : file ? SUCCESS : BORDER}`,
+                  background: dragging ? 'rgba(16,185,129,0.03)' : file ? 'rgba(22,163,74,0.03)' : SEC_BG,
                   borderRadius: 6,
-                  padding: '32px 20px',
+                  padding: '28px 16px',
                   textAlign: 'center',
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
+                  transition: 'all 0.15s',
                 }}
               >
                 <input ref={fileInputRef} type="file" accept=".csv" onChange={handleFileChange} style={{ display: 'none' }} />
                 {file ? (
                   <div>
-                    <div style={{ fontSize: 18, color: EMERALD, marginBottom: 8 }}>✓</div>
-                    <div style={{ color: 'white', fontWeight: 400, fontSize: 14 }}>{file.name}</div>
-                    <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12, marginTop: 4, fontWeight: 300 }}>{(file.size / 1024).toFixed(1)} KB</div>
+                    <div style={{ fontSize: 15, color: SUCCESS, marginBottom: 6 }}>✓</div>
+                    <div style={{ color: FG, fontWeight: 500, fontSize: 13 }}>{file.name}</div>
+                    <div style={{ color: MUTED, fontSize: 12, marginTop: 3, fontWeight: 300 }}>{(file.size / 1024).toFixed(1)} KB</div>
                   </div>
                 ) : (
                   <div>
-                    <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.2)', marginBottom: 10 }}>↑</div>
-                    <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13, fontWeight: 300 }}>Drop CSV here or click to browse</div>
-                    <div style={{ color: 'rgba(255,255,255,0.25)', fontSize: 11, marginTop: 6, fontWeight: 300 }}>Requires a Company LinkedIn URL column</div>
+                    <div style={{ fontSize: 18, color: BORDER, marginBottom: 8, userSelect: 'none' }}>↑</div>
+                    <div style={{ color: FG, fontSize: 13, fontWeight: 400 }}>Drop CSV here or click to browse</div>
+                    <div style={{ color: MUTED, fontSize: 11, marginTop: 4, fontWeight: 300 }}>Requires a Company LinkedIn URL column</div>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Divider */}
-            <div style={{ height: 1, background: 'rgba(255,255,255,0.08)', marginBottom: 22 }} />
+            <div style={{ height: 1, background: BORDER, marginBottom: 20 }} />
 
-            {/* Skip phone */}
+            {/* Skip phone checkbox */}
             <div
               onClick={() => setSkipPhone(!skipPhone)}
-              style={{ display: 'flex', alignItems: 'flex-start', gap: 12, cursor: 'pointer', marginBottom: 24, userSelect: 'none' }}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: 10, cursor: 'pointer', marginBottom: 20, userSelect: 'none' }}
             >
               <div style={{
-                width: 16, height: 16, borderRadius: 2, marginTop: 1, flexShrink: 0,
-                background: skipPhone ? EMERALD : 'transparent',
-                border: `1px solid ${skipPhone ? EMERALD : 'rgba(255,255,255,0.2)'}`,
+                width: 16, height: 16, borderRadius: 4, marginTop: 1, flexShrink: 0,
+                background: skipPhone ? FG : '#FFFFFF',
+                border: `1px solid ${skipPhone ? FG : BORDER}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                transition: 'all 0.2s',
+                transition: 'all 0.15s',
               }}>
                 {skipPhone && <span style={{ color: 'white', fontSize: 10, lineHeight: 1 }}>✓</span>}
               </div>
               <div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}>Skip phone enrichment</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', marginTop: 2, fontWeight: 300 }}>Saves ~5 credits per employee</div>
+                <div style={{ fontSize: 13, color: FG, fontWeight: 400 }}>Skip phone enrichment</div>
+                <div style={{ fontSize: 11, color: MUTED, marginTop: 2, fontWeight: 300 }}>Saves ~5 credits per employee</div>
               </div>
             </div>
 
             {error && (
-              <div style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 6, padding: '11px 14px', color: '#f87171', fontSize: 13, fontWeight: 300, marginBottom: 18 }}>
+              <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 6, padding: '10px 14px', color: '#DC2626', fontSize: 13, fontWeight: 300, marginBottom: 16 }}>
                 {error}
               </div>
             )}
 
-            {/* Primary button - style guide: 6px radius, weight 500, 90% opacity on hover */}
+            {/* Primary button - matches website: bg-primary (near-black), hover:bg-primary/90 */}
             <button
               onClick={handleSubmit}
               disabled={!file || loading}
               style={{
                 width: '100%',
-                background: !file || loading ? 'rgba(16,185,129,0.15)' : EMERALD,
-                color: !file || loading ? 'rgba(255,255,255,0.25)' : 'white',
-                border: 'none', borderRadius: 6, padding: '13px 0',
+                background: !file || loading ? SEC_BG : FG,
+                color: !file || loading ? MUTED : '#FFFFFF',
+                border: `1px solid ${!file || loading ? BORDER : FG}`,
+                borderRadius: 6, padding: '10px 16px',
                 fontSize: 14, fontWeight: 500, cursor: !file || loading ? 'not-allowed' : 'pointer',
-                transition: 'opacity 0.2s', letterSpacing: '0.02em',
+                transition: 'opacity 0.15s', letterSpacing: '-0.01em',
                 fontFamily: 'Inter, sans-serif',
               }}
               onMouseEnter={e => { if (file && !loading) (e.target as HTMLButtonElement).style.opacity = '0.9' }}
@@ -248,66 +252,72 @@ export default function App() {
         ) : (
           <div style={card}>
 
-            {/* Status label + done badge */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+              <span style={{ fontSize: 13, color: MUTED, fontWeight: 400 }}>
                 {isDone ? 'Enrichment complete' :
                  status?.phase === 'enriching' ? 'Enriching employees...' : 'Starting...'}
               </span>
               {isDone && (
-                <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 500, color: EMERALD, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: 10, fontWeight: 500, color: SUCCESS, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                   Complete
                 </span>
               )}
             </div>
 
             {/* Progress bar */}
-            <div style={{ marginBottom: 24 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Inter, sans-serif', fontSize: 11, fontWeight: 500, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.05em', marginBottom: 8 }}>
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 500, color: MUTED, letterSpacing: '0.05em', marginBottom: 8 }}>
                 <span>{status ? `Company ${status.companyCurrent} of ${status.companyTotal}` : 'Waiting...'}</span>
                 <span>{pct}%</span>
               </div>
-              <div style={{ height: 2, background: 'rgba(255,255,255,0.08)', borderRadius: 999 }}>
-                <div style={{ height: '100%', width: `${pct}%`, background: EMERALD, borderRadius: 999, transition: 'width 0.4s cubic-bezier(0.22,1,0.36,1)' }} />
+              <div style={{ height: 4, background: SEC_BG, border: `1px solid ${BORDER}`, borderRadius: 999, overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%',
+                  width: `${pct}%`,
+                  background: isDone ? SUCCESS : EMERALD,
+                  borderRadius: 999,
+                  transition: 'width 0.4s cubic-bezier(0.22,1,0.36,1)',
+                }} />
               </div>
               {status?.currentCompanyName && !isDone && (
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', fontWeight: 300, marginTop: 8 }}>
+                <div style={{ fontSize: 11, color: MUTED, fontWeight: 300, marginTop: 6 }}>
                   {status.currentCompanyName}
                 </div>
               )}
             </div>
 
             {linkedinCol && (
-              <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 500, color: 'rgba(255,255,255,0.25)', marginBottom: 20, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
-                Column: <span style={{ fontFamily: 'monospace', color: 'rgba(255,255,255,0.4)', textTransform: 'none', letterSpacing: 0, fontWeight: 400 }}>{linkedinCol}</span>
+              <div style={{ fontSize: 10, fontWeight: 500, color: MUTED, marginBottom: 16, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                Column: <span style={{ fontFamily: 'monospace', color: FG, textTransform: 'none', letterSpacing: 0, fontWeight: 400, fontSize: 12 }}>{linkedinCol}</span>
               </div>
             )}
 
             {/* Stats grid */}
             {status && (
-              <div style={{ display: 'grid', gridTemplateColumns: skipPhone ? '1fr 1fr' : '1fr 1fr 1fr', gap: 8, marginBottom: isDone ? 24 : 0 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: skipPhone ? '1fr 1fr' : '1fr 1fr 1fr', gap: 8, marginBottom: isDone ? 20 : 0 }}>
                 <Stat label="Employees" value={status.employeesFound} />
-                <Stat label="Emails" value={status.emailsFound} accent />
-                {!skipPhone && <Stat label="Phones" value={status.phonesFound} accent />}
+                <Stat label="Emails" value={status.emailsFound} success />
+                {!skipPhone && <Stat label="Phones" value={status.phonesFound} success />}
               </div>
             )}
 
             {isDone && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {/* Download: success/emerald (semantic - completed action) */}
                 <button
                   onClick={() => window.location.assign(`/api/download/${jobId}`)}
-                  style={{ width: '100%', background: EMERALD, color: 'white', border: 'none', borderRadius: 6, padding: '13px 0', fontSize: 14, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', letterSpacing: '0.02em', transition: 'opacity 0.2s' }}
+                  style={{ width: '100%', background: SUCCESS, color: 'white', border: 'none', borderRadius: 6, padding: '10px 16px', fontSize: 14, fontWeight: 500, cursor: 'pointer', fontFamily: 'Inter, sans-serif', letterSpacing: '-0.01em', transition: 'opacity 0.15s' }}
                   onMouseEnter={e => (e.target as HTMLButtonElement).style.opacity = '0.9'}
                   onMouseLeave={e => (e.target as HTMLButtonElement).style.opacity = '1'}
                 >
                   Download Enriched CSV
                 </button>
-                {/* Ghost button variant */}
+                {/* Outline secondary */}
                 <button
                   onClick={reset}
-                  style={{ width: '100%', background: 'transparent', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, padding: '11px 0', fontSize: 13, fontWeight: 400, cursor: 'pointer', fontFamily: 'Inter, sans-serif', transition: 'opacity 0.2s' }}
-                  onMouseEnter={e => (e.target as HTMLButtonElement).style.opacity = '0.7'}
-                  onMouseLeave={e => (e.target as HTMLButtonElement).style.opacity = '1'}
+                  style={{ width: '100%', background: '#FFFFFF', color: FG, border: `1px solid ${BORDER}`, borderRadius: 6, padding: '10px 16px', fontSize: 13, fontWeight: 400, cursor: 'pointer', fontFamily: 'Inter, sans-serif', transition: 'background 0.15s' }}
+                  onMouseEnter={e => (e.target as HTMLButtonElement).style.background = SEC_BG}
+                  onMouseLeave={e => (e.target as HTMLButtonElement).style.background = '#FFFFFF'}
                 >
                   Enrich Another File
                 </button>
@@ -315,7 +325,7 @@ export default function App() {
             )}
 
             {status?.error && (
-              <div style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 6, padding: '11px 14px', color: '#f87171', fontSize: 13, fontWeight: 300, marginTop: 16 }}>
+              <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 6, padding: '10px 14px', color: '#DC2626', fontSize: 13, fontWeight: 300, marginTop: 16 }}>
                 Error: {status.error}
               </div>
             )}
@@ -324,21 +334,17 @@ export default function App() {
 
         {/* CSV hint */}
         {!jobId && (
-          <div style={{ marginTop: 12, padding: '11px 16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 6 }}>
-            <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 500, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Required: </span>
-            <span style={{ fontFamily: 'monospace', fontSize: 12, color: 'rgba(255,255,255,0.45)', fontWeight: 400 }}>Company LinkedIn URL</span>
-            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', fontWeight: 300 }}> column</span>
+          <div style={{ marginTop: 10, padding: '10px 14px', background: '#FFFFFF', border: `1px solid ${BORDER}`, borderRadius: 6, boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+            <span style={{ fontSize: 10, fontWeight: 500, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Required: </span>
+            <span style={{ fontSize: 12, color: FG, fontFamily: 'monospace', fontWeight: 400 }}>Company LinkedIn URL</span>
+            <span style={{ fontSize: 12, color: MUTED, fontWeight: 300 }}> column</span>
           </div>
         )}
 
-        {/* Footer - matches cover page footer style */}
-        <div style={{ marginTop: 48, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.06em' }}>
-            1 Hour Recruitment
-          </span>
-          <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.2)', letterSpacing: '0.06em' }}>
-            1hourrecruitment.com
-          </span>
+        {/* Footer */}
+        <div style={{ marginTop: 40, paddingTop: 18, borderTop: `1px solid ${BORDER}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ fontSize: 11, fontWeight: 400, color: MUTED }}>1 Hour Recruitment</span>
+          <span style={{ fontSize: 11, fontWeight: 400, color: MUTED }}>1hourrecruitment.com</span>
         </div>
 
       </div>
