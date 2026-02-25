@@ -18,31 +18,11 @@ const MUTED   = '#737373'  // hsl(0 0% 45%) - muted-foreground
 const BORDER  = '#E5E5E5'  // hsl(0 0% 90%) - border
 const SEC_BG  = '#F5F5F5'  // hsl(0 0% 96%) - secondary/muted
 const SUCCESS = '#16A34A'  // hsl(142 76% 36%) - success
-const EMERALD = '#10B981'  // brand emerald (logo + progress only)
-
-function IconMark({ size = 26 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-      <path d="M75 47C61.2 47 50 58.1 50 71.9s11.2 24.9 25 24.9 25-11.1 25-24.9S88.8 47 75 47Z" fill="#059669" fillOpacity=".5"/>
-      <path d="M37.5 123.7c0-14.6 13.5-25.6 27.9-22.6l4.4.9c3.5.7 7 .7 10.5 0l4.4-.9c14.3-3 27.8 8 27.8 22.6 0 12.8-10.3 23.2-23.1 23.2H60.6c-12.7 0-23.1-10.4-23.1-23.2Z" fill="#059669" fillOpacity=".5"/>
-      <path d="M0 33.3V125c0 13.8 11.2 25 25 25s25-11.2 25-25V75c0-13.8 11.2-25 25-25s25 11.2 25 25v50c0 13.8 11.2 25 25 25s25-11.2 25-25V33.3C148 13.3 138.8 4.2 120.1.6 117.8.1 115.5 0 113.2 0H33.3C12.1 2.1 2.1 12.9 0 33.3Z" fill="#059669"/>
-    </svg>
-  )
-}
+const EMERALD = '#10B981'  // brand emerald (progress bar + drag highlight)
 
 function Logo() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
-      <IconMark size={26} />
-      <div style={{ lineHeight: 1 }}>
-        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 14, fontWeight: 700, letterSpacing: '-0.4px', color: FG }}>
-          <span style={{ color: '#059669' }}>1</span>HOUR
-        </div>
-        <div style={{ fontFamily: 'Inter, sans-serif', fontSize: 6.5, fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', color: MUTED, marginTop: 3 }}>
-          Recruitment
-        </div>
-      </div>
-    </div>
+    <img src="/logo.svg" alt="1 Hour Recruitment" style={{ height: 28 }} />
   )
 }
 
