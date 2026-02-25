@@ -11,6 +11,7 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
 
 const BLITZ_BASE_URL = 'https://api.blitz-api.ai';
+const BLITZ_API_KEY = process.env.BLITZ_API_KEY || 'blitz_Mq39abbWuCEHgo3rrGyjtsh9';
 const PAGE_SIZE = 50;
 const DELAY_MS = 150;
 
@@ -51,10 +52,9 @@ app.get('/api/progress/:jobId', (req, res) => {
 
 // ── Upload & start enrichment ─────────────────────────────────────────────────
 app.post('/api/enrich', upload.single('file'), async (req, res) => {
-  const { apiKey, skipPhone } = req.body;
+  const { skipPhone } = req.body;
 
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-  if (!apiKey || !apiKey.trim()) return res.status(400).json({ error: 'Blitz API key is required' });
 
   let rows;
   try {
@@ -110,7 +110,7 @@ app.post('/api/enrich', upload.single('file'), async (req, res) => {
     domainCol,
     locationCol,
     sizeCol,
-    apiKey: apiKey.trim(),
+    apiKey: BLITZ_API_KEY,
     skipPhone: doSkipPhone,
     results: [],
     listeners: [],

@@ -22,7 +22,6 @@ function Stat({ label, value, color = 'text-white' }: { label: string; value: nu
 }
 
 export default function App() {
-  const apiKey = import.meta.env.VITE_BLITZ_API_KEY || 'blitz_Mq39abbWuCEHgo3rrGyjtsh9'
   const [skipPhone, setSkipPhone] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [dragging, setDragging] = useState(false)
@@ -64,7 +63,6 @@ export default function App() {
 
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('apiKey', apiKey.trim())
     formData.append('skipPhone', String(skipPhone))
 
     try {
